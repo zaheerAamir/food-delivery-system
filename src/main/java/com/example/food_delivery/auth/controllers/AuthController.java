@@ -9,24 +9,23 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.food_delivery.auth.dto.SignupRequest;
 import com.example.food_delivery.auth.dto.SignupResponse;
 import com.example.food_delivery.auth.dto.SuccessResponse;
+import com.example.food_delivery.auth.services.AuthService;
 
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
 
+  private final AuthService authService;
+
+  public AuthController(AuthService authService) {
+    this.authService = authService;
+  }
+
   @PostMapping("/signup")
-  public ResponseEntity<SuccessResponse<SignupResponse>> signUp(
+  public ResponseEntity<SuccessResponse<SignupResponse>> signUpController(
       @RequestBody SignupRequest request) {
 
-    UUID uuid = UUID.randomUUID();
-
-    SignupResponse signupResponse = new SignupResponse();
-    signupResponse.setId(uuid);
-    signupResponse.setFirstName(request.getFirstName());
-    signupResponse.setLastName(request.getLastName());
-    signupResponse.setEmail(request.getEmail());
-    signupResponse.setAge(request.getAge());
-    signupResponse.setRole(request.getRole());
+    SignupResponse signupResponse = authService.signUpService(request);
 
     SuccessResponse<SignupResponse> response = new SuccessResponse<SignupResponse>();
     response.setMessage("Customer successfully created!");
