@@ -1,6 +1,5 @@
 package com.example.food_delivery.auth.controllers;
 
-import java.util.UUID;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +9,7 @@ import com.example.food_delivery.auth.dto.SignupRequest;
 import com.example.food_delivery.auth.dto.SignupResponse;
 import com.example.food_delivery.auth.dto.SuccessResponse;
 import com.example.food_delivery.auth.services.AuthService;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
@@ -23,7 +23,7 @@ public class AuthController {
 
   @PostMapping("/signup")
   public ResponseEntity<SuccessResponse<SignupResponse>> signUpController(
-      @RequestBody SignupRequest request) {
+      @Valid @RequestBody SignupRequest request) {
 
     SignupResponse signupResponse = authService.signUpService(request);
 

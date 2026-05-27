@@ -41,7 +41,10 @@ public class SignupResponse {
   }
 
   public void setAge(Integer age) {
-    this.age = age;
+    if (age != 0 && age > 18) {
+
+      this.age = age;
+    }
   }
 
   public String getEmail() {

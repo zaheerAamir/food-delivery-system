@@ -1,13 +1,28 @@
 package com.example.food_delivery.auth.models;
 
-public class Customer {
+import java.util.UUID;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
+@Entity
+public class Users {
+
+  @Id
+  private UUID id;
   private String firstName;
   private String lastName;
   private Integer age;
   private String email;
   private String password;
   private Role role;
+
+  public UUID getId() {
+    return id;
+  }
+
+  public void setId(UUID id) {
+    this.id = id;
+  }
 
   public String getFirstName() {
     return firstName;
@@ -30,7 +45,10 @@ public class Customer {
   }
 
   public void setAge(Integer age) {
-    this.age = age;
+    if (age != 0 && age > 18) {
+
+      this.age = age;
+    }
   }
 
   public String getEmail() {
@@ -56,5 +74,6 @@ public class Customer {
   public void setRole(Role role) {
     this.role = role;
   }
+
 
 }
